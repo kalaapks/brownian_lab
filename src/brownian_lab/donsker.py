@@ -88,6 +88,11 @@ def plotqv_donsker(n, seed=None, ax=None, show_labels=None):
                         textcoords="offset points", fontsize=6,
                         color="red", va="center")
 
+    # the QV value, in red, where the legend used to be
+    ax.text(0.02, 0.97,
+            rf"$\sum_{{i=1}}^{{{int(n)}}} e_i^2 = {qv:.4f}$",
+            transform=ax.transAxes, color="red", fontsize=14, va="top")
+
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
     ax.minorticks_on()
@@ -95,9 +100,7 @@ def plotqv_donsker(n, seed=None, ax=None, show_labels=None):
     ax.grid(True, which="minor", linestyle=":", linewidth=0.5, alpha=0.3)
 
     ax.set_title(f"Quadratic Variation of the Donsker Walk ($n={int(n)}$)",
-                 fontsize=13, pad=28)
-    ax.set_title(rf"$\sum_{{i=1}}^{{{int(n)}}} e_i^2 = {qv:.4f}$",
-                 fontsize=13, color="red", pad=10)
+                 fontsize=13, pad=12)
     ax.set_xlabel("$t$", fontsize=11)
     ax.set_ylabel(r"$W_n(t)$", fontsize=11)
     fig.tight_layout()
