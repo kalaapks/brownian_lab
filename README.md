@@ -52,21 +52,20 @@ Note that `plot_*` function is designed to take arrays as input so that we can s
 
 ## Background
 
-- **Donsker:** the rescaled walk $W_n(t) = S_{\lfloor nt \rfloor}/\sqrt{n}$ converges in law to
-  Brownian motion.
-- **Lévy:** the path is built coarse to fine, setting each midpoint to the
-  average of its endpoints plus an independent Gaussian correction:
+- **Donsker:** the following process is called Diffusively Rescaled Random Walk and it converges in law to Brownian motion. This result is called the Functional Central Limit Theorem.
 
-$$B\left(\tfrac{2k+1}{2^{r+1}}\right) = \tfrac12\left[B\left(\tfrac{k}{2^r}\right) + B\left(\tfrac{k+1}{2^r}\right)\right] + 2^{-(r/2+1)}\,\varepsilon_k, \qquad \varepsilon_k \sim N(0,1).$$
+$$W_n(t) = \frac{S_{\lfloor nt \rfloor}}{\sqrt{n}} \xrightarrow{d} B$$
+  
+- **Lévy:** the path is built coarse to fine, setting each midpoint to the average of its endpoints plus an independent Gaussian correction:
 
-- **Cholesky:** $B = LZ$ where $LL^\top = \Sigma$ and $\Sigma_{ij} = \min(t_i, t_j)$. It is exact, but costs
-  $O(n^3)$ to factorise.
+$$B\left(\tfrac{2k+1}{2^{r+1}}\right) = \tfrac12\left[B\left(\tfrac{k}{2^r}\right) + B\left(\tfrac{k+1}{2^r}\right)\right] + \frac{\epsilon_k}{2^{-(\frac{r}{2}+1)}} \qquad \epsilon_k \sim \mathcal{N}(0,1).$$
+
+- **Cholesky:** $B = LZ$ where $LL^\top = \Sigma$ and $\Sigma_{ij} = \min(t_i, t_j)$. It is exact, but costs $O(n^3)$ to factorise.
 - **Quadratic variation:** $\sum_i (\Delta W_i)^2 \to t$ as the grid is refined.
 
 ## Status
 
-Generators and plotting are complete. Numerical validation (increment and
-covariance tests, convergence rates) is in progress.
+Generators and plotting are complete. Numerical validation (increment and covariance tests, convergence rates) is in progress.
 
 ## Requirements
 
