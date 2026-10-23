@@ -1,8 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.offsetbox import TextArea, HPacker, AnchoredOffsetbox
 
 sigma = 1
-
 
 def donsker_walk(n, seed=None, show=True):
     if np.ndim(n) > 0:                       # a list / array of n's
@@ -70,7 +70,6 @@ def plotqv_donsker(n, seed=None, ax=None, show_labels=None):
     else:
         fig = ax.figure
 
-    # the path itself
     ax.plot(t, W, color="steelblue", linewidth=1.2, alpha=0.8,
             marker="o", markersize=3, zorder=2)
 
@@ -79,7 +78,7 @@ def plotqv_donsker(n, seed=None, ax=None, show_labels=None):
     ax.errorbar(t[1:], mid, yerr=np.abs(e) / 2, fmt="none",
                 ecolor="red", elinewidth=1.2, capsize=3, zorder=3)
 
-    #e_i labels, switched off when they clutter, i pick 30
+    #e_i labels, switched off when they clutter, I picked 30
     if show_labels is None:
         show_labels = n <= 30
     if show_labels:
@@ -88,9 +87,20 @@ def plotqv_donsker(n, seed=None, ax=None, show_labels=None):
                         textcoords="offset points", fontsize=6,
                         color="red", va="center")
 
-    ax.text(0.02, 0.97,
-            rf"$\sum_{{i=1}}^{{{int(n)}}} e_i^2 = {qv:.4f}$",
-            transform=ax.transAxes, color="red", fontsize=14, va="top")
+    # one-line title, with the sum in red (man learning this was harder than the thinking of the actual logic)
+    props = dict(fontsize=13)
+    box = HPacker(
+        children=[
+            TextArea("Quadratic Variation of the Donsker Walk (",
+                     textprops=dict(color="black", **props)),
+            TextArea(rf"$\sum_{{i=1}}^{{{int(n)}}} e_i^2 = {qv:.4f}$",
+                     textprops=dict(color="red", **props)),
+            TextArea(")", textprops=dict(color="black", **props)),
+        ],
+        align="baseline", pad=0, sep=0)
+    ax.add_artist(AnchoredOffsetbox(
+        loc="lower center", child=box, frameon=False, borderpad=0,
+        bbox_to_anchor=(0.5, 1.02), bbox_transform=ax.transAxes))
 
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
@@ -98,9 +108,7 @@ def plotqv_donsker(n, seed=None, ax=None, show_labels=None):
     ax.grid(True, which="major", linestyle=":", linewidth=0.8, alpha=0.6)
     ax.grid(True, which="minor", linestyle=":", linewidth=0.5, alpha=0.3)
 
-    ax.set_title(f"Quadratic Variation of the Donsker Walk ($n={int(n)}$)",
-                 fontsize=13, pad=12)
     ax.set_xlabel("$t$", fontsize=11)
     ax.set_ylabel(r"$W_n(t)$", fontsize=11)
-    fig.tight_layout()
+    fig.tight_layout(rect=(0, 0, 1, 0.95))
     return fig, ax
