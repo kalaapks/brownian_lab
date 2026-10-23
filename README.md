@@ -27,10 +27,10 @@ pip install git+https://github.com/YOUR_USERNAME/brownian-lab.git
 ```python
 from brownian_lab import donsker_walk, plot_donsker, qv_donsker, plotqv_donsker
 
-t, W = donsker_walk(100, 43)          # prints coordinates, returns (t, W)
-plot_donsker([10, 100, 1000], 43)     # several paths on one plot
-qv_donsker([10, 20, 50, 60], 43)      # quadratic variation for each n
-plotqv_donsker(20, 43)                # path with increments e_i drawn in red
+donsker_walk(100, 43);                 # prints coordinates, returns (t, W)
+plot_donsker([10, 100, 1000], 43);     # 3 paths on one plot
+qv_donsker([10, 20, 50, 60], 43);      # quadratic variation for each n
+plotqv_donsker(20, 43);                # path with increments e_i drawn in red
 ```
 
 The same pattern works for `levy` and `cholesky`:
