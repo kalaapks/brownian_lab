@@ -74,12 +74,12 @@ def plotqv_donsker(n, seed=None, ax=None, show_labels=None):
     ax.plot(t, W, color="steelblue", linewidth=1.2, alpha=0.8,
             marker="o", markersize=3, zorder=2)
 
-    # one red vertical segment (with caps) at each t_i, spanning W[i-1] to W[i]
+    # one red vertical segment (with bar type) at each t_i, spanning W[i-1] to W[i]
     mid = (W[:-1] + W[1:]) / 2
     ax.errorbar(t[1:], mid, yerr=np.abs(e) / 2, fmt="none",
                 ecolor="red", elinewidth=1.2, capsize=3, zorder=3)
 
-    # tiny e_i labels, switched off automatically when they would clutter
+    #e_i labels, switched off when they clutter, i pick 30
     if show_labels is None:
         show_labels = n <= 30
     if show_labels:
@@ -88,7 +88,6 @@ def plotqv_donsker(n, seed=None, ax=None, show_labels=None):
                         textcoords="offset points", fontsize=6,
                         color="red", va="center")
 
-    # the QV value, in red, where the legend used to be
     ax.text(0.02, 0.97,
             rf"$\sum_{{i=1}}^{{{int(n)}}} e_i^2 = {qv:.4f}$",
             transform=ax.transAxes, color="red", fontsize=14, va="top")
