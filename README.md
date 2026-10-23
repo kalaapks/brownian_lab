@@ -8,14 +8,12 @@ stochastic calculus and the Black-Scholes PDE (IISER Kolkata) where the rigorous
 
 | Function | Construction | Grid |
 |---|---|---|
-| `donsker_walk(n, seed)` | Scaled Gaussian random walk (Donsker's theorem) | n steps |
-| `levy(level, seed)` | Lévy midpoint-displacement construction | 2^level steps |
-| `cholesky(n, seed)` | Exact simulation via Cholesky factor of min(s, t) | n steps |
+| `donsker_walk(n, seed)` | Diffusively Rescaled Random Walk (FCLT) | n steps |
+| `levy(level, seed)` | Lévy midpoint-wriggle construction | 2^level steps |
+| `cholesky(n, seed)` | Exact simulation via Cholesky factorization of min(s, t) | n steps |
 
 Each generator returns `(t, W)`, the time grid and the path values. Passing a
-list returns a dictionary with one path per entry.
-
-Each generator also has `plot_*`, `qv_*` and `plotqv_*` functions, e.g.
+list returns a dictionary with one path per entry. Each generator also has `plot_*`, `qv_*` and `plotqv_*` functions, e.g.
 `plot_levy`, `qv_levy`, `plotqv_levy`.
 
 ## Installation
@@ -25,7 +23,7 @@ pip install git+https://github.com/YOUR_USERNAME/brownian-lab.git
 ```
 
 ## Usage
-
+  
 ```python
 from brownian_lab import donsker_walk, plot_donsker, qv_donsker, plotqv_donsker
 
@@ -43,6 +41,8 @@ from brownian_lab import levy, plot_levy, plotqv_levy
 plot_levy([2, 4, 6, 10], 43)          # same seed: each level refines the last
 plotqv_levy(4, 43)
 ```
+Note that `plot_*` function is designed to take arrays as input so that we can see the consecutive progression if we want to for the path, we simply need to `plot_levy([1, 2, 3, 4, 5, ...], 42)`
+
 
 ## Plots
 
@@ -52,13 +52,16 @@ plotqv_levy(4, 43)
 
 ## Background
 
-- **Donsker:** the rescaled walk W_n(t) = S_{⌊nt⌋}/√n converges in law to
+- **Donsker:** the rescaled walk $W_n(t) = S_{\lfloor nt \rfloor}/\sqrt{n}$ converges in law to
   Brownian motion.
 - **Lévy:** the path is built coarse to fine, setting each midpoint to the
-  average of its endpoints plus an independent Gaussian correction.
-- **Cholesky:** B = LZ where LLᵀ = Σ, Σ_ij = min(t_i, t_j). It is exact, but costs
-  O(n³) to factorise.
-- **Quadratic variation:** Σ(ΔW)² tends to t as the grid is refined.
+  average of its endpoints plus an independent Gaussian correction:
+
+$$B\left(\tfrac{2k+1}{2^{r+1}}\right) = \tfrac12\left[B\left(\tfrac{k}{2^r}\right) + B\left(\tfrac{k+1}{2^r}\right)\right] + 2^{-(r/2+1)}\,\varepsilon_k, \qquad \varepsilon_k \sim N(0,1).$$
+
+- **Cholesky:** $B = LZ$ where $LL^\top = \Sigma$ and $\Sigma_{ij} = \min(t_i, t_j)$. It is exact, but costs
+  $O(n^3)$ to factorise.
+- **Quadratic variation:** $\sum_i (\Delta W_i)^2 \to t$ as the grid is refined.
 
 ## Status
 
