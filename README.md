@@ -70,3 +70,11 @@ Generators and plotting are complete. Numerical validation (increment and covari
 ## Requirements
 
 Python ≥ 3.9, NumPy, SciPy, Matplotlib.
+
+## Attribution
+
+You are welcome to use, modify, and distribute this library under the MIT License.
+
+If you use this project in your own work, attribution to the original repository and its author is appreciated.
+
+
