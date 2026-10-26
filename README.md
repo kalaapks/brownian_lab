@@ -1,4 +1,4 @@
-# brownian-lab
+# brownian\_lab
 
 Three constructions of Brownian motion on [0, 1] in Python (namely Donsker DRRW, Lévy construction \& Cholesky's exact simulation), with plotting and
 quadratic-variation visualisation.
