@@ -42,7 +42,7 @@ from brownian_lab import levy, plot_levy, plotqv_levy
 plot_levy([2, 4, 6, 10], 43)          # same seed: each level refines the last
 plotqv_levy(4, 43)
 ```
-Note that `plot_*` function is designed to take arrays as input so that we can see the consecutive progression if we want to for the path, we simply need to `plot_levy([1, 2, 3, 4, 5, ...], 42)`
+Note that `plot_*` function is designed to take arrays as input so that we can see the consecutive progression, if we want to, of the path as it becomes a Brownian path, we simply need to `plot_levy([1, 2, 3, 4, 5, ...], 42)`
 
 
 ## Plots
@@ -53,20 +53,21 @@ Note that `plot_*` function is designed to take arrays as input so that we can s
 
 ## Background
 
-- **Donsker:** the following process is called Diffusively Rescaled Random Walk and it converges in law to Brownian motion. This result is called the Functional Central Limit Theorem.
+- **Donsker:** The following process is called Diffusively Rescaled Random Walk and it converges in law to Brownian motion. This result is called the Functional Central Limit Theorem.
 
 $$W_n(t) = \frac{S_{\lfloor nt \rfloor}}{\sqrt{n}} \xrightarrow{d} B$$
   
-- **Lévy:** the path is built coarse to fine, setting each midpoint to the average of its endpoints plus an independent Gaussian correction:
+- **Lévy:** The path is built coarse to fine, setting each midpoint to the average of its endpoints plus an independent Gaussian correction:
 
 $$B\left(\tfrac{2k+1}{2^{r+1}}\right) = \tfrac12\left[B\left(\tfrac{k}{2^r}\right) + B\left(\tfrac{k+1}{2^r}\right)\right] + \frac{\epsilon_k}{2^{-(\frac{r}{2}+1)}} \qquad \epsilon_k \sim \mathcal{N}(0,1).$$
 
 - **Cholesky:** $B = LZ$ where $LL^\top = \Sigma$ and $\Sigma_{ij} = \min(t_i, t_j)$. It is exact, but costs $O(n^3)$ to factorise.
-- **Quadratic variation:** $\sum_i (\Delta W_i)^2 \to t$ as the grid is refined.
 
-## Status
+ **Quadratic variation:** The general theory of variation measures the total change of the process measured per step and then summed over all steps. In particular Quadratic variation measures the quadratic change per step and sums it. Here, we only need to know, $\sum_i (\Delta W_i)^2 \to t$ as the grid is refined.
 
-Generators and plotting are complete. Numerical validation (increment and covariance tests, convergence rates) is in progress.
+<!-- ## Status
+
+Generators and plotting are complete. Numerical validation (increment and covariance tests, convergence rates) is in progress. -->
 
 ## Requirements
 
@@ -77,5 +78,3 @@ Python ≥ 3.9, NumPy, SciPy, Matplotlib.
 You are welcome to use, modify, and distribute this library under the MIT License.
 
 If you use this project in your own work, attribution to the original repository and its author is appreciated.
-
-
