@@ -3,7 +3,7 @@
 >Three constructions of Brownian motion on [0, 1] in Python (namely Donsker DRRW, Lévy construction \& Cholesky's exact simulation), with plotting and
 quadratic-variation visualisation.
 
-This is a companion code to my master's thesis on Stochastic calculus and the Black-Scholes PDE where the rigorous proofs of these constructions (including Functional Central Limit Theorem) that we are coding here can be found. <a href="">[Thesis]</a>
+This is a companion code to my master's thesis on Stochastic calculus and the Black-Scholes PDE where the rigorous proofs of these constructions (including Functional Central Limit Theorem) that we are coding here can be found. <a href="https://github.com/kalaapks/kalaapks.github.io/blob/main/pdf/Stoc/MS%20Thesis%20Kalaap%20Sadhu.pdf">[Thesis]</a>
 
 ## The three generators
 
@@ -76,5 +76,3 @@ Python ≥ 3.9, NumPy, SciPy, Matplotlib.
 ## Attribution
 
 You are welcome to use, modify, and distribute this library under the MIT License.
-
-If you use this project in your own work, attribution to the original repository and its author is appreciated.
